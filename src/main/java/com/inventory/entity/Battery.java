@@ -1,6 +1,5 @@
-package com.inventory.model;
+package com.inventory.entity;
 
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
@@ -9,7 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- * This class is a part of the package com.inventory.model and the package
+ * This class is a part of the package com.inventory.entity and the package
  * is a part of the project BatteryInventory.
  * <p>
  * Connecting Creations Pvt. Ltd. Lalitpur, Nepal.
@@ -26,9 +25,9 @@ public class Battery {
     private String id;
     private String name;
     private String postcode;
-    private String capacity;
+    private long capacity;
 
-    public Battery(String name, String postcode, String capacity) {
+    public Battery(String name, String postcode, long capacity) {
         this.name = name;
         this.postcode = postcode;
         this.capacity = capacity;
