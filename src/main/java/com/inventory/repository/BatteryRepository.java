@@ -1,6 +1,7 @@
 package com.inventory.repository;
 
 import com.inventory.entity.Battery;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
@@ -14,6 +15,6 @@ import org.springframework.stereotype.Repository;
  * Created by sagar on 2022-12-06.
  */
 @Repository
-public interface BatteryRepository extends CrudRepository<Battery,String> {
+public interface BatteryRepository extends JpaRepository<Battery,String> {
 
 }
