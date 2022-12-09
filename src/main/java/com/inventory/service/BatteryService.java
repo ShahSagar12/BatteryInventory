@@ -5,11 +5,13 @@ import com.inventory.common.StringLiterals;
 import com.inventory.entity.Battery;
 import com.inventory.repository.BatteryRepository;
 import lombok.RequiredArgsConstructor;
+import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,15 +29,15 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BatteryService {
 
-    private BatteryRepository batteryRepository;
+    private final BatteryRepository batteryRepository;
 
     /**
      * Store Single Battery on the Database
      *
      * @param battery
-     * @return
+     * @return Battery
      */
-    public Battery save(Battery battery){
+    public Battery save(Battery battery) {
 
         return batteryRepository.save(battery);
     }
@@ -44,28 +46,29 @@ public class BatteryService {
      * Store the List of Battery in to Database
      *
      * @param batteries
-     * @return
+     * @return List<Battery>
      */
-    public List<Battery> bulkStore(List<Battery> batteries){
+    public List<Battery> bulkStore(List<Battery> batteries) {
 
         return batteryRepository.saveAll(batteries);
     }
 
     /**
-     * Get Battery by Reference Id
+     * Get Battery by id
+     *
      * @param id
      * @return
      */
-    public Battery getOne(String id){
-        return batteryRepository.getReferenceById(id);
+    public Battery getOne(Long id) {
+        return batteryRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException(id, "Object Not Found"));
     }
 
     /**
      * List Of All Batteries for Statistics Data
      *
-     * @return
+     * @return List<Battery></Battery>
      */
-    public List<Battery> getAll(){
+    public List<Battery> getAll() {
 
         return batteryRepository.findAll();
     }
@@ -75,17 +78,35 @@ public class BatteryService {
      *
      * @param size
      * @param pageNumber
-     * @param sortProperty
-     * @return
+     * @return List<Battery>
      */
-     public List<Battery> findAll(Optional<Integer> size,Optional<Integer> pageNumber,Optional<String> sortProperty){
+    public List<Battery> findAll(Optional<Integer> size, Optional<Integer> pageNumber) {
 
         return batteryRepository.findAll(
-                Pageable.ofSize(size.orElse(DefaultConfiguation.DEFAULT_PAGE_SIZE))
-                        .withPage(pageNumber.orElse(DefaultConfiguation.DEFAULT_PAGE_NUMBER))
-                        .getSortOr(Sort.unsorted())
-        );
+                PageRequest.of(
+                        pageNumber.orElse(DefaultConfiguation.DEFAULT_PAGE_NUMBER),
+                        size.orElse(DefaultConfiguation.DEFAULT_PAGE_SIZE),
+                        Sort.unsorted())
+        ).getContent();
+    }
 
+    /**
+     * Update the battery with content of battery
+     *
+     * @param battery
+     * @return Battery
+     */
+    public Battery updateBattery(@RequestBody Battery battery) {
 
+        return batteryRepository.save(battery);
+    }
+
+    /**
+     * Delete the existing battery with an identifier
+     *
+     * @param identifier
+     */
+    public void deleteBattery(Long identifier) {
+        batteryRepository.deleteById(identifier);
     }
 }

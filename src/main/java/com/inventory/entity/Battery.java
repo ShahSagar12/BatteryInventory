@@ -1,5 +1,6 @@
 package com.inventory.entity;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import javax.persistence.Entity;
@@ -22,7 +23,7 @@ import javax.persistence.Id;
 public class Battery {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private String id;
+    private Long id;
     private String name;
     private String postcode;
     private long capacity;

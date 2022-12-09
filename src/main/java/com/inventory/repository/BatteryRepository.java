@@ -15,6 +15,6 @@ import org.springframework.stereotype.Repository;
  * Created by sagar on 2022-12-06.
  */
 @Repository
-public interface BatteryRepository extends JpaRepository<Battery,String> {
+public interface BatteryRepository extends JpaRepository<Battery,Long> {
 
 }

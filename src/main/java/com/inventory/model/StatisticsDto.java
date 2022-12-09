@@ -4,6 +4,7 @@ import com.inventory.entity.Battery;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 
 import java.util.List;
 
@@ -20,7 +21,6 @@ import java.util.List;
 @Builder
 public class StatisticsDto {
 
-    private String name;
     private  long totalBattery;
     private double averageCapacity;
 
