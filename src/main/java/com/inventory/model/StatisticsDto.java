@@ -21,16 +21,30 @@ import java.util.List;
 @Builder
 public class StatisticsDto {
 
+    /**
+     * Total number of Battery
+     */
     private  long totalBattery;
+    /**
+     * Average capacity of Battery
+     */
     private double averageCapacity;
-
+    /**
+     * Minimum capacity of Battery
+     */
     private long minCapacity;
-
+    /**
+     * Maximum capacity of Battery
+     */
     private long maxCapacity;
 
-
+    /**
+     * Statistics computation
+     *
+     * @param batteries
+     * @return StatisticsDto
+     */
     public static StatisticsDto statistics(List<Battery> batteries){
-
 
         return  StatisticsDto.builder()
                 .totalBattery(batteries.stream().count())
