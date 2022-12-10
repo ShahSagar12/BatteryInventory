@@ -1,14 +1,11 @@
 package com.inventory.service;
 
 import com.inventory.common.DefaultConfiguation;
-import com.inventory.common.StringLiterals;
 import com.inventory.entity.Battery;
 import com.inventory.repository.BatteryRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.ObjectNotFoundException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -48,7 +45,7 @@ public class BatteryService {
      * @param batteries
      * @return List<Battery>
      */
-    public List<Battery> bulkStore(List<Battery> batteries) {
+    public List<Battery> saveMultipleBatteries(List<Battery> batteries) {
 
         return batteryRepository.saveAll(batteries);
     }
