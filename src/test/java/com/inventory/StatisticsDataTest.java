@@ -1,5 +1,6 @@
 package com.inventory;
 
+import com.inventory.common.AbstractWebTestWrapper;
 import com.inventory.common.TestData;
 import com.inventory.model.util.Response;
 import com.inventory.model.util.Statistics;
@@ -31,8 +32,7 @@ import static org.mockito.BDDMockito.given;
 @SpringBootTest
 @WebAppConfiguration
 @RequiredArgsConstructor
-public class StatisticsDataTest extends AbstractWebTestWrapper{
-
+public class StatisticsDataTest extends AbstractWebTestWrapper {
 
     private final WebApplicationContext webApplicationContext;
 

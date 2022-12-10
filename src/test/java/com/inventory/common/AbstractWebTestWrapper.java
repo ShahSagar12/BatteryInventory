@@ -1,4 +1,4 @@
-package com.inventory;
+package com.inventory.common;
 
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
