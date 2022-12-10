@@ -121,3 +121,6 @@ url: http://localhost:8080/h2-console
 
 # Api Documentation: Using Swagger UI
 Url: http://localhost:8080/swagger-ui/index.html
+
+# Postman Collection
+loc: ./Proshore_Code_Challenge.postman_collection.json
