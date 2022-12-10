@@ -25,6 +25,9 @@ class BatteryinventoryServiceTests {
 
 	private final BatteryService batteryService;
 
+	/**
+	 * Test The Save Battery
+	 */
 	@Test
 	void saveTest(){
 		given(batteryRepository.save(TestData.battery())).willReturn(TestData.battery());
@@ -32,12 +35,18 @@ class BatteryinventoryServiceTests {
 		assertTrue(battery.getId()!=0, ResponseMessages.ADDED_SUCCESSFULLY);
 	}
 
+	/**
+	 * Test FindAllData
+	 */
 	@Test
 	void findAllDataTest() {
 		given(batteryRepository.findAll()).willReturn(TestData.batteries());
 		assertTrue(batteryService.getAll().size()==5);
 	}
 
+	/**
+	 * Test getOne Battery
+	 */
 	@Test
 	void getOneTest(){
 		given(batteryRepository.findById(1234L)).willReturn(Optional.of(TestData.battery()));

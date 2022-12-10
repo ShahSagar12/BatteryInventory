@@ -5,8 +5,15 @@ import com.inventory.entity.Battery;
 import com.inventory.model.ResponseDto;
 import com.inventory.model.StatisticsDto;
 import com.inventory.service.BatteryService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +34,9 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BatteryController {
     private final BatteryService batteryService;
-
+    @Operation(summary = "Save a battery")
     @PostMapping
-    public ResponseEntity<ResponseDto<?>> save(@RequestBody Battery battery){
+    public ResponseEntity<ResponseDto<?>> save(@ParameterObject @RequestBody Battery battery){
         return  ResponseEntity.ok(
                 ResponseDto.builder()
                         .status(true)
@@ -37,9 +44,9 @@ public class BatteryController {
                         .build()
         );
     }
-
+    @Operation(summary = "Get list of battery with pagination")
     @GetMapping("/all")
-    public ResponseEntity<ResponseDto<?>> findAll(@RequestParam("size") Optional<Integer> size, @RequestParam("page") Optional<Integer> pageNumber){
+    public ResponseEntity<ResponseDto<?>> findAll(@Parameter @RequestParam("size") Optional<Integer> size,@Parameter @RequestParam("page") Optional<Integer> pageNumber){
         return  ResponseEntity.ok(
                 ResponseDto.builder()
                         .status(true)
@@ -48,6 +55,13 @@ public class BatteryController {
         );
     }
 
+    @Operation(summary = "Get Battery by Id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "Found the Battery",
+                    content = { @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Battery.class)) }),
+            @ApiResponse(responseCode = "400", description = "Object doesn't exist",
+                    content = @Content)})
     @GetMapping("/{id}")
     public ResponseEntity<ResponseDto<?>> getOne(@PathVariable("id") Long identifier){
         return  ResponseEntity.ok(
@@ -58,8 +72,9 @@ public class BatteryController {
         );
     }
 
+    @Operation(summary = "Update Battery")
     @PutMapping
-    public ResponseEntity<ResponseDto<?>> update(@RequestBody Battery battery){
+    public ResponseEntity<ResponseDto<?>> update(@ParameterObject @RequestBody Battery battery){
         return  ResponseEntity.ok(
                 ResponseDto.builder()
                         .status(true)
@@ -69,6 +84,7 @@ public class BatteryController {
         );
     }
 
+    @Operation(summary = "Delete Battery with id")
     @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDto<?>> delete(@PathVariable("id") Long identifier){
         batteryService.deleteBattery(identifier);
@@ -80,9 +96,9 @@ public class BatteryController {
         );
     }
 
-
+    @Operation(summary = "Bulkstore Batteries")
     @PostMapping("/all")
-    public ResponseEntity<ResponseDto<?>> bulkStore(@RequestBody List<Battery> batteries){
+    public ResponseEntity<ResponseDto<?>> bulkStore(@ParameterObject @RequestBody List<Battery> batteries){
         return  ResponseEntity.ok(
                 ResponseDto.builder()
                         .status(true)
@@ -92,6 +108,7 @@ public class BatteryController {
         );
     }
 
+    @Operation(summary = "Statistics of Battery like averageCapacity,Max capacity, Min capacity,total capcity")
     @GetMapping("/statistics")
     public ResponseEntity<ResponseDto<?>> getStatistics(){
         return  ResponseEntity.ok(
