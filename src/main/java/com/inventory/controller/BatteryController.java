@@ -3,7 +3,7 @@ package com.inventory.controller;
 import com.inventory.common.ResponseMessages;
 import com.inventory.entity.Battery;
 import com.inventory.model.ResponseDto;
-import com.inventory.model.StatisticsDto;
+import com.inventory.model.BatteryStatisticsDto;
 import com.inventory.service.BatteryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -11,7 +11,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.api.annotations.ParameterObject;
 import org.springframework.http.ResponseEntity;
@@ -98,11 +97,11 @@ public class BatteryController {
 
     @Operation(summary = "Bulkstore Batteries")
     @PostMapping("/all")
-    public ResponseEntity<ResponseDto<?>> bulkStore(@ParameterObject @RequestBody List<Battery> batteries){
+    public ResponseEntity<ResponseDto<?>> saveMultipleBatteries(@ParameterObject @RequestBody List<Battery> batteries){
         return  ResponseEntity.ok(
                 ResponseDto.builder()
                         .status(true)
-                        .result(batteryService.bulkStore(batteries))
+                        .result(batteryService.saveMultipleBatteries(batteries))
                         .message(ResponseMessages.ADDED_SUCCESSFULLY)
                         .build()
         );
@@ -115,7 +114,7 @@ public class BatteryController {
                     ResponseDto.builder()
                             .status(true)
                             .message(ResponseMessages.STATISTICS_DATA)
-                            .result(StatisticsDto.statistics(batteryService.getAll()))
+                            .result(BatteryStatisticsDto.statistics(batteryService.getAll()))
                             .build()
         );
     }
