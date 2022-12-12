@@ -19,7 +19,7 @@ import java.util.stream.IntStream;
 
 @Builder
 public class ApplicationUtils {
-    
+
     /**
      * List Of Batteries
      */
