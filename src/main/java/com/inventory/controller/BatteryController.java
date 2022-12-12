@@ -33,67 +33,6 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class BatteryController {
     private final BatteryService batteryService;
-    @Operation(summary = "Save a battery")
-    @PostMapping
-    public ResponseEntity<ResponseDto<?>> save(@ParameterObject @RequestBody Battery battery){
-        return  ResponseEntity.ok(
-                ResponseDto.builder()
-                        .status(true)
-                        .result(batteryService.save(battery))
-                        .build()
-        );
-    }
-    @Operation(summary = "Get list of battery with pagination")
-    @GetMapping("/all")
-    public ResponseEntity<ResponseDto<?>> findAll(@Parameter @RequestParam("size") Optional<Integer> size,@Parameter @RequestParam("page") Optional<Integer> pageNumber){
-        return  ResponseEntity.ok(
-                ResponseDto.builder()
-                        .status(true)
-                        .result(batteryService.findAll(size, pageNumber))
-                        .build()
-        );
-    }
-
-    @Operation(summary = "Get Battery by Id")
-    @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "Found the Battery",
-                    content = { @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = Battery.class)) }),
-            @ApiResponse(responseCode = "400", description = "Object doesn't exist",
-                    content = @Content)})
-    @GetMapping("/{id}")
-    public ResponseEntity<ResponseDto<?>> getOne(@PathVariable("id") Long identifier){
-        return  ResponseEntity.ok(
-                ResponseDto.builder()
-                        .status(true)
-                        .result(batteryService.getOne(identifier))
-                        .build()
-        );
-    }
-
-    @Operation(summary = "Update Battery")
-    @PutMapping
-    public ResponseEntity<ResponseDto<?>> update(@ParameterObject @RequestBody Battery battery){
-        return  ResponseEntity.ok(
-                ResponseDto.builder()
-                        .status(true)
-                        .result(batteryService.updateBattery(battery))
-                        .message(ResponseMessages.UPDATED_SUCCESSFULLY)
-                        .build()
-        );
-    }
-
-    @Operation(summary = "Delete Battery with id")
-    @DeleteMapping("/{id}")
-    public ResponseEntity<ResponseDto<?>> delete(@PathVariable("id") Long identifier){
-        batteryService.deleteBattery(identifier);
-        return  ResponseEntity.ok(
-                ResponseDto.builder()
-                        .status(true)
-                        .message(ResponseMessages.DELETED_SUCCESSFUL_MESSAGE)
-                        .build()
-        );
-    }
 
     @Operation(summary = "Bulkstore Batteries")
     @PostMapping("/all")
@@ -103,6 +42,18 @@ public class BatteryController {
                         .status(true)
                         .result(batteryService.saveMultipleBatteries(batteries))
                         .message(ResponseMessages.ADDED_SUCCESSFULLY)
+                        .build()
+        );
+    }
+
+    @Operation(summary = "Statistics of Batteries for range of postcodes")
+    @GetMapping("/statistics/postcodes")
+    public ResponseEntity<ResponseDto<?>> getStatisticsOfPostCodes(@ParameterObject @RequestParam("from") int from,@ParameterObject @RequestParam("to") int to){
+        return  ResponseEntity.ok(
+                ResponseDto.builder()
+                        .status(true)
+                        .message(ResponseMessages.STATISTICS_DATA)
+                        .result(batteryService.getStatisticsForPostCodes(from,to))
                         .build()
         );
     }
