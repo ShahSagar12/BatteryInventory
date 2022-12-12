@@ -20,7 +20,7 @@ import javax.persistence.Id;
 @Entity
 @NoArgsConstructor
 @Data
-public class Battery {
+public class Battery implements Comparable<Battery>{
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -32,5 +32,10 @@ public class Battery {
         this.name = name;
         this.postcode = postcode;
         this.capacity = capacity;
+    }
+
+    @Override
+    public int compareTo(Battery battery) {
+        return name.compareTo(battery.getName());
     }
 }

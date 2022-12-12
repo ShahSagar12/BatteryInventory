@@ -33,74 +33,30 @@
 			"response": []
 		},
 		{
-			"name": "Paginated Data",
+			"name": "Get statistics data for range of postcodes",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "{{baseUrl}}/all?page=0&size=5",
+					"raw": "{{baseUrl}}/statistics/postcodes?from=1000&to=3000",
 					"host": [
 						"{{baseUrl}}"
 					],
 					"path": [
-						"all"
+						"statistics",
+						"postcodes"
 					],
 					"query": [
 						{
-							"key": "page",
-							"value": "0"
+							"key": "from",
+							"value": "1000"
 						},
 						{
-							"key": "size",
-							"value": "5"
+							"key": "to",
+							"value": "3000"
 						}
 					]
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get Battery By Id",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "{{baseUrl}}/2"
-			},
-			"response": []
-		},
-		{
-			"name": "update Battery",
-			"request": {
-				"method": "PUT",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": " {\n     \"id\":1,\n    \"name\": \"Canningtons\",\n    \"postcode\": \"6107\",\n    \"capacity\": 13500\n  }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}"
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Battery",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": " {\n     \"id\":1,\n    \"name\": \"Canningtons\",\n    \"postcode\": \"6107\",\n    \"capacity\": 13500\n  }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": "{{baseUrl}}/1"
 			},
 			"response": []
 		}

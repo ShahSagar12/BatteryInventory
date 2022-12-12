@@ -1,6 +1,9 @@
 package com.inventory.model.util;
 
+import com.inventory.entity.Battery;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * This class is a part of the package com.inventory.model and the package
@@ -13,7 +16,7 @@ import lombok.Data;
  */
 @Data
 public class Statistics {
-    private String name;
+    private List<Battery> batteries;
     private  long totalBattery;
     private double averageCapacity;
     private long minCapacity;

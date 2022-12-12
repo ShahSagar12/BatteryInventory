@@ -4,7 +4,9 @@ import com.inventory.entity.Battery;
 import lombok.Builder;
 import lombok.Data;
 
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class is a part of the package com.inventory.model and the package
@@ -37,6 +39,11 @@ public class BatteryStatisticsDto {
     private long maxCapacity;
 
     /**
+     * Sorted Battery within the Range
+     */
+    private List<BatteryDto> batteries;
+
+    /**
      * Statistics computation
      *
      * @param batteries
@@ -45,6 +52,7 @@ public class BatteryStatisticsDto {
     public static BatteryStatisticsDto statistics(List<Battery> batteries){
 
         return  BatteryStatisticsDto.builder()
+                .batteries(batteries.stream().sorted().map(BatteryDto::convertToDto).collect(Collectors.toList()))
                 .totalBattery(batteries.size())
                 .minCapacity(getMinCapacity(batteries))
                 .maxCapacity(getMaxCapacity(batteries))
