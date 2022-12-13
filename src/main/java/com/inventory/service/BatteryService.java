@@ -3,20 +3,16 @@ package com.inventory.service;
 import com.inventory.common.DefaultConfiguation;
 import com.inventory.entity.Battery;
 import com.inventory.model.BatteryStatisticsDto;
-import com.inventory.model.util.ApplicationUtils;
+import com.inventory.model.util.BatteryUtils;
 import com.inventory.repository.BatteryRepository;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.ObjectNotFoundException;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * This class is a part of the package com.inventory.service and the package
@@ -115,12 +111,12 @@ public class BatteryService {
     public BatteryStatisticsDto getStatisticsForPostCodes(int from, int to) {
 
         return BatteryStatisticsDto.statistics(
-                ApplicationUtils.builder()
+                BatteryUtils.builder()
                         .batteries(getAll())
                         .from(from)
                         .to(to)
                         .build()
-                        .selectedList()
+                        .selectedBattery()
         );
     }
 }

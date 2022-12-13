@@ -18,7 +18,7 @@ import java.util.stream.IntStream;
  */
 
 @Builder
-public class ApplicationUtils {
+public class BatteryUtils {
 
     /**
      * List Of Batteries
@@ -49,14 +49,14 @@ public class ApplicationUtils {
     /**
      * Create Set Of Intersection between the postcodes present on the batteries and range of elements
      *
-     * @return
+     * @return Set
      */
-    private Set<String> intersection(){
+    private Set<String> getRangeOfBattery(){
 
         return IntStream.rangeClosed(from,to)
                 .boxed()
                 .collect(Collectors.toSet())
-                .parallelStream()
+                .stream()
                 .filter(postCodes()::contains)
                 .map(String::valueOf)
                 .collect(Collectors.toSet());
@@ -65,12 +65,12 @@ public class ApplicationUtils {
     /**
      * BatteryList whose postcodes lies within the range
      *
-     * @return
+     * @return List
      */
-    public List<Battery> selectedList() {
+    public List<Battery> selectedBattery() {
 
         return batteries.stream()
-                .filter(battery -> intersection().contains(battery.getPostcode()))
+                .filter(battery -> getRangeOfBattery().contains(battery.getPostcode()))
                 .collect(Collectors.toList());
     }
 }

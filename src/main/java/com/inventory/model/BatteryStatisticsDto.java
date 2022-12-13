@@ -25,6 +25,11 @@ public class BatteryStatisticsDto {
      * Total number of Battery
      */
     private  long totalBattery;
+
+    /**
+     * Total number of Battery Capacity
+     */
+    private  long totalBatteryCapacity;
     /**
      * Average capacity of Battery
      */
@@ -54,10 +59,22 @@ public class BatteryStatisticsDto {
         return  BatteryStatisticsDto.builder()
                 .batteries(batteries.stream().sorted().map(BatteryDto::convertToDto).collect(Collectors.toList()))
                 .totalBattery(batteries.size())
+                .totalBatteryCapacity(getTotalCapacity(batteries))
                 .minCapacity(getMinCapacity(batteries))
                 .maxCapacity(getMaxCapacity(batteries))
                 .averageCapacity(getAverageCapacity(batteries))
                 .build();
+    }
+
+    /**
+     * Total Battery Capacity
+     *
+     * @param batteries
+     * @return List
+     */
+    private static long getTotalCapacity(List<Battery> batteries) {
+
+        return batteries.stream().mapToLong(Battery::getCapacity).sum();
     }
 
     /**
