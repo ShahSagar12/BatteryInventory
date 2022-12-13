@@ -24,15 +24,6 @@
 			"response": []
 		},
 		{
-			"name": "Get Statistics Data",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": "{{baseUrl}}/statistics"
-			},
-			"response": []
-		},
-		{
 			"name": "Get statistics data for range of postcodes",
 			"request": {
 				"method": "GET",

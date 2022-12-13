@@ -33,11 +33,11 @@ public class TestData {
     public static List<Battery> batteries() {
 
         return Arrays.asList(
-                new Battery("Battery1","12347",1234),
-                new Battery("Battery2","12345",1200),
-                new Battery("Battery3","12342",1998),
-                new Battery("Battery4","72347",129),
-                new Battery("Battery5","92347",1100)
+                new Battery("BatteryA","0001",1000),
+                new Battery("BatteryB","0002",2000),
+                new Battery("BatteryC","0003",3000),
+                new Battery("BatteryD","0004",4000),
+                new Battery("BatteryE","0005",5000)
         );
     }
 }
