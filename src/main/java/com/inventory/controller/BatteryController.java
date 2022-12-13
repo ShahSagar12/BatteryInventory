@@ -4,6 +4,7 @@ import com.inventory.common.ResponseMessages;
 import com.inventory.entity.Battery;
 import com.inventory.facade.BatteryFacade;
 import com.inventory.model.BatteryDto;
+import com.inventory.model.BatteryStatisticsDto;
 import com.inventory.model.ResponseDto;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
@@ -31,9 +32,9 @@ public class BatteryController {
 
     @Operation(summary = "Bulkstore Batteries")
     @PostMapping("/all")
-    public ResponseEntity<ResponseDto<?>> saveMultipleBatteries(@ParameterObject @RequestBody List<Battery> batteries){
+    public ResponseEntity<ResponseDto<List<BatteryDto>>> saveMultipleBatteries(@ParameterObject @RequestBody List<Battery> batteries){
         return  ResponseEntity.ok(
-                ResponseDto.builder()
+                ResponseDto.<List<BatteryDto>>builder()
                         .status(true)
                         .result(batteryFacade.saveMultipleBatteries(batteries))
                         .message(ResponseMessages.ADDED_SUCCESSFULLY)
@@ -43,9 +44,9 @@ public class BatteryController {
 
     @Operation(summary = "Statistics of Batteries for range of postcodes")
     @GetMapping("/statistics/postcodes")
-    public ResponseEntity<ResponseDto<?>> getStatisticsOfPostCodes(@ParameterObject @RequestParam("from") int from,@ParameterObject @RequestParam("to") int to){
+    public ResponseEntity<ResponseDto<BatteryStatisticsDto>> getStatisticsOfPostCodes(@ParameterObject @RequestParam("from") int from, @ParameterObject @RequestParam("to") int to){
         return  ResponseEntity.ok(
-                ResponseDto.builder()
+                ResponseDto.<BatteryStatisticsDto>builder()
                         .status(true)
                         .message(ResponseMessages.STATISTICS_DATA)
                         .result(batteryFacade.findBatteryListByPostCodeRange(from,to))
