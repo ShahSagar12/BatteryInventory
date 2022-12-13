@@ -18,7 +18,7 @@ import static org.mockito.BDDMockito.given;
 
 @SpringBootTest
 @RequiredArgsConstructor
-class BatteryinventoryServiceTests {
+class BatteryServiceTests {
 
 	@MockBean
 	private BatteryRepository batteryRepository;
@@ -44,14 +44,6 @@ class BatteryinventoryServiceTests {
 		assertTrue(batteryService.getAll().size()==5);
 	}
 
-	/**
-	 * Test getOne Battery
-	 */
-	@Test
-	void getOneTest(){
-		given(batteryRepository.findById(1234L)).willReturn(Optional.of(TestData.battery()));
-		Battery battery=batteryService.getOne(1234L);
-		assertEquals(TestData.battery(),battery);
-	}
+
 
 }

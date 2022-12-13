@@ -3,6 +3,7 @@ package com.inventory.model;
 import com.inventory.entity.Battery;
 import lombok.Builder;
 import lombok.Data;
+import lombok.ToString;
 
 import java.util.Collections;
 import java.util.List;
@@ -19,6 +20,7 @@ import java.util.stream.Collectors;
  */
 @Data
 @Builder
+@ToString
 public class BatteryStatisticsDto {
 
     /**
